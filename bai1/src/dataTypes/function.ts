@@ -52,7 +52,7 @@ const arr_1 = [3, 5, 7]
 // })
 
 
-const we17304_map = function (arr: number[], callback?: (item: number, index: number) => number) {
+const we17304_maps = function (arr: number[], callback?: (item: number, index: number) => number) {
     const temp = []
     for (let i = 0; i < arr.length; i++) {
         const newItem = callback(arr[i], i);
@@ -61,7 +61,7 @@ const we17304_map = function (arr: number[], callback?: (item: number, index: nu
     }
     return temp
 }
-const result = we17304_map(arr_1, (item, index) => {
+const results = we17304_maps(arr_1, (item, index) => {
     return index
 })
-console.log(result);
+console.log(results);

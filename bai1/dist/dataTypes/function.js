@@ -50,7 +50,7 @@ var arr_1 = [3, 5, 7];
 // const temp = arr_1.map((item) => {
 //     return item * 2
 // })
-var we17304_map = function (arr, callback) {
+var we17304_maps = function (arr, callback) {
     var temp = [];
     for (var i = 0; i < arr.length; i++) {
         var newItem = callback(arr[i], i);
@@ -58,7 +58,7 @@ var we17304_map = function (arr, callback) {
     }
     return temp;
 };
-var result = we17304_map(arr_1, function (item, index) {
+var results = we17304_maps(arr_1, function (item, index) {
     return index;
 });
-console.log(result);
+console.log(results);

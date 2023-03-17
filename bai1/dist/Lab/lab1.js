@@ -1,9 +1,20 @@
 var arrNumber = [209, 43, 53, 534];
+var arrstring = ['Long', 'ABC', 'linh', 'ly'];
 function ascendingOrder(a, b) {
     return a - b;
 }
 var sapxep = function (arr, callback) {
     var _a;
+    if (!callback) {
+        callback = function (a, b) {
+            if (a > b) {
+                return 1;
+            }
+            else {
+                return -1;
+            }
+        };
+    }
     var len = arr.length;
     for (var i = 0; i < len - 1; i++) {
         for (var j = i + 1; j < len; j++) {
@@ -14,5 +25,5 @@ var sapxep = function (arr, callback) {
     }
     return arr;
 };
-sapxep(arrNumber, ascendingOrder);
-console.log(arrNumber);
+sapxep(arrstring);
+console.log(arrstring);

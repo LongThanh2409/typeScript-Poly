@@ -5,11 +5,11 @@ const Avavtar = (props) => {
     // props.user = {
     //     name: "Dinh Quoc Tai"
     // }
-    return <div className="flex">
+    return <div className="">
         {children}
         <h1>{user.name}</h1>
-        <img className="border-white rounded-[50%]" alt="" src="https://picsum.photos/id/237/50/50" />
-        <button className="border" onClick={showInfo}>Magic</button>
+        <img className=" " alt="" src="https://hapoland.vn/wp-content/uploads/2022/09/hao-han-la-gi-3.jpg" />
+        <button className="" class="bg-red-200" onClick={showInfo}>Ảo thật đấy</button>
     </div>
 
 }

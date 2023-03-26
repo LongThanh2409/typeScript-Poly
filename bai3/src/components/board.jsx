@@ -64,7 +64,7 @@ const Board = ({ children }) => {
                 <span>Người chiến thắng là {winner === "X" ? "X" : "O"}</span>
             </div>
             <div class="inner">
-                <span>Người chiến thắng là {winner === "X" ? "X" : "O"}</span>
+                <span className="font-black">Game Over</span>
             </div>
         </div>
 

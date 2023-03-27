@@ -4,11 +4,15 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: navajowhite;
+
 }
 
 .box {
     display: flex;
+}
+
+.win {
+    background-color: yellow;
 }
 
 .box .inner {
@@ -38,11 +42,11 @@ body {
 
 .box .inner span {
     position: absolute;
-    animation: marquee 5s linear infinite;
+    animation: marquee 4s linear infinite;
 }
 
 .box .inner:first-child span {
-    animation-delay: 2.5s;
+    animation-delay: 2s;
     left: -100%;
 }
 

@@ -12,44 +12,23 @@ const Board = ({ children }) => {
     const handlePlay = (position) => {
 
         const newGame = game.map((g, index) => {
-
-
-
-
-
-
             if (index === position) {
                 return player ? "X" : "O"
             }
 
-            setLastGame([...game])
-            setLastPlayer(player)
-
-
-
-
+            // console.log(g);
             return g
 
         })
+        setLastGame([...game])
+        setLastPlayer(player)
         if (checkWinner()) {
-
             return true
-
-
         }
-
-
-
-
-
         setGame(newGame)
         setPlayer(!player)
 
-
-
     }
-
-
 
     const players = () => {
         if (checkWinner()) {
@@ -75,20 +54,32 @@ const Board = ({ children }) => {
     ]
     const handlReset = () => {
         setGame([null, null, null, null, null, null, null, null, null])
-
-
+        document.querySelectorAll(".square").forEach((square) => {
+            square.classList.remove("bg-yellow-500");
+        });
     }
+    // const dennguoc = (time = 3000) => {
+
+    //     if (checkWinner()) {
+    //         setTimeout(() => {
+    //             handlReset()
+    //         }, time);
+    //     }
+    // }
 
 
     const checkWinner = () => {
         for (let i = 0; i < listWinner.length; i++) {
             const [p1, p2, p3] = listWinner[i]
             if (game[p1] === game[p2] && game[p2] === game[p3]) {
-
+                // const color = [p1, p2, p3]
                 if (game[p1]) {
-
+                    document.querySelectorAll(".square")[p1].classList.add("bg-yellow-500");
+                    document.querySelectorAll(".square")[p2].classList.add("bg-yellow-500");
+                    document.querySelectorAll(".square")[p3].classList.add("bg-yellow-500");
                     return digital(game[p1]);
                 }
+
 
             }
 
@@ -98,19 +89,21 @@ const Board = ({ children }) => {
         return null
     }
     const handleUndo = () => {
-        if (lastGame && lastPlayer !== null) {
+        if (lastGame && lastPlayer !== null && !checkWinner()) {
             setGame(lastGame)
             setPlayer(lastPlayer)
             setLastGame(null)
             setLastPlayer(null)
         }
+        // console.log(setPlayer(lastGame));
     }
 
 
 
     return <>
+        {/* <h2 className="pt-4 font-bold">Time:{dennguoc()}</h2> */}
         <h2 className="pt-4 font-bold">Lượt tiếp theo:{players()}</h2>
-        <h2 className="pt-4 font-bold my-2"> {checkWinner()}</h2>
+        <h2 className="pt-4 font-bold my-2 h-20"> {checkWinner()}</h2>
         <div className="grid grid-cols-3 gap-2 w-[240px] ">
             <Square value={game[0]} position={0} handlePlay={handlePlay} />
             <Square value={game[1]} position={1} handlePlay={handlePlay} />

@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import Board from './board'
+
+
 const Square = ({ value, position, handlePlay }) => {
 
     const squareHandlePlay = () => {

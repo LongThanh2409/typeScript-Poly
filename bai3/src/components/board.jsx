@@ -1,18 +1,35 @@
 import { useState } from "react"
 import Square from "./square"
-
+import { useEffect } from "react"
 
 const Board = ({ children }) => {
     const [game, setGame] = useState([null, null, null, null, null, null, null, null, null])
     const [player, setPlayer] = useState(true)
     const [lastGame, setLastGame] = useState(null)
     const [lastPlayer, setLastPlayer] = useState(null)
+    const [lastPlayedTime, setLastPlayedTime] = useState(new Date())
+    const [time, setTime] = useState(3)
+    useEffect(() => {
+        const timer = setTimeout(() => {
 
 
+            if (!checkWinner() && new Date() - lastPlayedTime >= 3000) {
+
+                randomPlay()
+                setTimeout(() => {
+                    setTime(time - 1);
+                }, 1000);
+            }
+
+        }, 3000)
+        // console.log(randomPlay());
+        return () => clearTimeout(timer)
+    }, [game, player, lastPlayedTime])
     const handlePlay = (position) => {
 
         const newGame = game.map((g, index) => {
             if (index === position) {
+
                 return player ? "X" : "O"
             }
 
@@ -27,8 +44,14 @@ const Board = ({ children }) => {
         }
         setGame(newGame)
         setPlayer(!player)
+        setLastPlayedTime(new Date())
 
     }
+
+
+
+
+
 
     const players = () => {
         if (checkWinner()) {
@@ -56,6 +79,8 @@ const Board = ({ children }) => {
         setGame([null, null, null, null, null, null, null, null, null])
         document.querySelectorAll(".square").forEach((square) => {
             square.classList.remove("bg-yellow-500");
+            setLastGame(null)
+            setLastPlayer(null)
         });
     }
     // const dennguoc = (time = 3000) => {
@@ -66,6 +91,17 @@ const Board = ({ children }) => {
     //         }, time);
     //     }
     // }
+    const randomPlay = () => {
+        const emptyPositions = game.reduce((acc, val, index) => {
+            if (val === null) acc.push(index)
+            return acc
+        }, [])
+        if (emptyPositions.length > 0) {
+            const randomIndex = Math.floor(Math.random() * emptyPositions.length)
+            const position = emptyPositions[randomIndex]
+            handlePlay(position)
+        }
+    }
 
 
     const checkWinner = () => {
@@ -94,6 +130,7 @@ const Board = ({ children }) => {
             setPlayer(lastPlayer)
             setLastGame(null)
             setLastPlayer(null)
+
         }
         // console.log(setPlayer(lastGame));
     }
@@ -101,7 +138,7 @@ const Board = ({ children }) => {
 
 
     return <>
-        {/* <h2 className="pt-4 font-bold">Time:{dennguoc()}</h2> */}
+
         <h2 className="pt-4 font-bold">Lượt tiếp theo:{players()}</h2>
         <h2 className="pt-4 font-bold my-2 h-20"> {checkWinner()}</h2>
         <div className="grid grid-cols-3 gap-2 w-[240px] ">

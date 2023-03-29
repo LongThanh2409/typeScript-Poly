@@ -1,7 +1,7 @@
 // Bước 1: Import React, React-DOM
 import React, { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-
+import App from './app'
 import Apptick from './apptick'
 
 // Bước 2: Khai báo dom
@@ -14,7 +14,7 @@ const reactRoot = createRoot(rootElement)
 
 reactRoot.render(
   <StrictMode>
-    <Apptick />
+    <App></App>
 
 
   </StrictMode>

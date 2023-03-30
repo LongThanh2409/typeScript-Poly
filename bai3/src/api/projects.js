@@ -8,4 +8,7 @@ const RemoveProjects = (id) => {
 const AddProjects = (products) => {
     return instance.post("/products", products)
 }
-export { getProjects, RemoveProjects, AddProjects } 
+const UpdateProjects = (products) => {
+    return instance.post("/products" + products._id, products)
+}
+export { getProjects, RemoveProjects, AddProjects, UpdateProjects } 

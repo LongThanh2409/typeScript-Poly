@@ -7,24 +7,9 @@ const Board = ({ children }) => {
     const [player, setPlayer] = useState(true)
     const [lastGame, setLastGame] = useState(null)
     const [lastPlayer, setLastPlayer] = useState(null)
-    const [lastPlayedTime, setLastPlayedTime] = useState(new Date())
-    const [time, setTime] = useState(3)
-    useEffect(() => {
-        const timer = setTimeout(() => {
+    // const [lastPlayedTime, setLastPlayedTime] = useState(new Date())
+    const [timer, setTimer] = useState(3)
 
-
-            if (!checkWinner() && new Date() - lastPlayedTime >= 3000) {
-
-                randomPlay()
-                setTimeout(() => {
-                    setTime(time - 1);
-                }, 1000);
-            }
-
-        }, 3000)
-        // console.log(randomPlay());
-        return () => clearTimeout(timer)
-    }, [game, player, lastPlayedTime])
     const handlePlay = (position) => {
 
         const newGame = game.map((g, index) => {
@@ -41,10 +26,12 @@ const Board = ({ children }) => {
         setLastPlayer(player)
         if (checkWinner()) {
             return true
+
         }
         setGame(newGame)
         setPlayer(!player)
-        setLastPlayedTime(new Date())
+        setTimer(3)
+        // setLastPlayedTime(new Date())
 
     }
 
@@ -76,13 +63,23 @@ const Board = ({ children }) => {
         [0, 1, 2], [0, 4, 8], [3, 4, 5], [6, 7, 8], [2, 4, 6], [0, 3, 6], [1, 4, 7], [2, 5, 8]
     ]
     const handlReset = () => {
+
         setGame([null, null, null, null, null, null, null, null, null])
         document.querySelectorAll(".square").forEach((square) => {
             square.classList.remove("bg-yellow-500");
-            setLastGame(null)
-            setLastPlayer(null)
+
+
         });
+        setLastGame(null)
+        setLastPlayer(null)
+        setTimer([3])
+
+
+
+
+
     }
+
     // const dennguoc = (time = 3000) => {
 
     //     if (checkWinner()) {
@@ -91,17 +88,66 @@ const Board = ({ children }) => {
     //         }, time);
     //     }
     // }
-    const randomPlay = () => {
-        const emptyPositions = game.reduce((acc, val, index) => {
-            if (val === null) acc.push(index)
-            return acc
-        }, [])
-        if (emptyPositions.length > 0) {
-            const randomIndex = Math.floor(Math.random() * emptyPositions.length)
-            const position = emptyPositions[randomIndex]
-            handlePlay(position)
-        }
+    // const randomPlay = () => {
+    //     const emptyPositions = game.reduce((acc, val, index) => {
+    //         if (val === null) acc.push(index)
+    //         return acc
+    //     }, [])
+    //     if (emptyPositions.length > 0) {
+    //         const randomIndex = Math.floor(Math.random() * emptyPositions.length)
+    //         const position = emptyPositions[randomIndex]
+    //         handlePlay(position)
+    //     }
+    // }
+    const handleAutoPlay = () => {
+
+        const emptyGame = game.map((square, index) => square ? null : index).filter(item => item != null)
+        const position = emptyGame[Math.floor(Math.random() * emptyGame.length)];
+
+        handlePlay(position)
+        setTimer(3)
+
+
+
     }
+    // const Conter = () => {
+    //     const [conter, setConter] = useState(3)
+    //     if (!checkWinner()) {
+
+    //         setTimeout(() => {
+    //             setConter(conter - 1)
+    //         }, 1000)
+    //         if (conter < 0) {
+    //             setConter(3)
+
+    //         }
+    //         return <>
+    //             <h1>time: {conter}</h1>
+    //         </>
+
+    //     }
+
+    // }
+
+    useEffect(() => {
+
+
+
+        if (!checkWinner()) {
+            if (timer < 0) {
+                handleAutoPlay()
+            }
+
+            const interval = setInterval(() => {
+                setTimer(timer - 1)
+            }, 700)
+
+            return () => clearInterval(interval)
+        }
+
+    }, [timer])
+
+
 
 
     const checkWinner = () => {
@@ -119,6 +165,9 @@ const Board = ({ children }) => {
 
             }
 
+
+
+
             // console.log(game[p2]);
 
         }
@@ -130,6 +179,7 @@ const Board = ({ children }) => {
             setPlayer(lastPlayer)
             setLastGame(null)
             setLastPlayer(null)
+            setTimer(3)
 
         }
         // console.log(setPlayer(lastGame));
@@ -138,7 +188,7 @@ const Board = ({ children }) => {
 
 
     return <>
-
+        <h2>{timer}</h2>
         <h2 className="pt-4 font-bold">Lượt tiếp theo:{players()}</h2>
         <h2 className="pt-4 font-bold my-2 h-20"> {checkWinner()}</h2>
         <div className="grid grid-cols-3 gap-2 w-[240px] ">

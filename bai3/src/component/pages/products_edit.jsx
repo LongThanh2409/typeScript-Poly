@@ -1,10 +1,10 @@
 import { useState } from "react"
 import Container from "../Content"
-import { AddProjects } from "../../api/projects"
-import { Router } from "react-router-dom"
+import { UpdateProjects } from "../../api/projects"
 
 
-const Products_add = () => {
+
+const Products_edit = () => {
     const [data, setdata] = useState([])
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
@@ -16,13 +16,13 @@ const Products_add = () => {
             price: price,
             description: description
         }
-        AddProjects(newProject)
+        UpdateProjects(newProject)
             .then(({ data }) => {
                 setdata([...data, newProject]);
                 setName("");
                 setPrice("");
                 setDescription("");
-            }).then((alert("Thêm thành công"))).then(window.location.href = "/")
+            }).then((alert("Sửa thành công"))).then(window.location.href = "/")
             .catch(error => console.log(error));
     }
 
@@ -56,4 +56,4 @@ const Products_add = () => {
     </>
 }
 
-export default Products_add
+export default Products_edit

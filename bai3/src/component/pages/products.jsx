@@ -8,13 +8,16 @@ const Products = () => {
 
     useEffect(() => {
         getProjects().then(({ data }) => setdata(data))
-    }, [])
+    }, [data])
     const handleRemove = (id, name) => {
         if (window.confirm(`Bạn có chắc muốn xóa dự án ${name}?`)) {
             RemoveProjects(id).then(() => {
                 setdata(data.filter((projects) => projects.id != id));
             }).catch(error => console.log(error));
         }
+
+    }
+    const handlUpdate = () => {
 
     }
 
@@ -47,8 +50,9 @@ const Products = () => {
                             </td>
                             <td class="py-3 px-6 text-center">{data.price}</td>
                             <td class="py-3 px-6 text-center">{data.description}</td>
-                            <td className="py-3 px-6 text-center">  <button onClick={() => handleRemove(data._id)} data-name={data.name} data-id={data.id} class="bg-danger "> Remove</button>
-                                {/* <a href=""> <button data-name={data.name} class="bg-success btn-update border-0 p-2 text-lime-50 rounded-md "> Update</button></a> */}
+                            <td className="py-3 px-6 text-center">  <button onClick={() => handleRemove(data._id)} data-name={data.name} data-id={data._id} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-2"> Remove</button>
+                                <button data-name={data.name} data-id={data._id} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-2"> 
+
                             </td>
                         </tr>
                     </>

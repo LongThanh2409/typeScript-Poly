@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { RemoveProjects, getProjects } from "../../api/projects";
 import Container from "../Content";
-import { Link, Outlet } from "react-router-dom"
+import { Link } from "react-router-dom"
 const Products = () => {
 
     const [data, setdata] = useState([])
@@ -17,9 +17,15 @@ const Products = () => {
         }
 
     }
-    const handlUpdate = () => {
 
-    }
+
+
+
+
+    const handleEdit = (id) => {
+        window.location.href = `/products_edit/${id}`;
+    };
+
 
     return <>
 
@@ -51,7 +57,8 @@ const Products = () => {
                             <td class="py-3 px-6 text-center">{data.price}</td>
                             <td class="py-3 px-6 text-center">{data.description}</td>
                             <td className="py-3 px-6 text-center">  <button onClick={() => handleRemove(data._id)} data-name={data.name} data-id={data._id} class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-2"> Remove</button>
-                                <button data-name={data.name} data-id={data._id} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-2"> 
+                                <button onClick={() => handleEdit(data._id)} data-name={data.name} data-id={data._id} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-2">   Update
+                                </button>
 
                             </td>
                         </tr>

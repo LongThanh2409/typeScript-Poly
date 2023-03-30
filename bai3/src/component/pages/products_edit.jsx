@@ -13,7 +13,14 @@ const Products_edit = () => {
     const [description, setDescription] = useState("");
 
     useEffect(() => {
-        getProjectsid(id).then(({ data }) => setData(data));
+        getProjectsid(id).then(({ data }) => {
+            setData(data);
+            setName(data.name);
+            setDescription(data.description);
+            setPrice(data.price)
+        })
+
+
     }, [id]);
 
     const handleEdit = (event) => {
@@ -38,7 +45,8 @@ const Products_edit = () => {
                 <label class="block text-gray-700 font-bold mb-2" for="name">
                     Name
                 </label>
-                <input class="name shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter name" value={data.name || name} onChange={(e) => setName(e.target.value)} />
+                <input class="name shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter name" value={name || data.name} onChange={(e) => setName(e.target.value)} />
+
             </div>
             <div class="mb-4">
                 <label class=" block text-gray-700 font-bold mb-2" for="price">

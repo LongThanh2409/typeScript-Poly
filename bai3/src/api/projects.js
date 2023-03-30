@@ -3,7 +3,7 @@ const getProjects = () => {
     return instance.get("/products")
 }
 const getProjectsid = (id) => {
-    return instance.get("/products" + id)
+    return instance.get("/products/" + id)
 }
 const RemoveProjects = (id) => {
     return instance.delete("/products/" + id)

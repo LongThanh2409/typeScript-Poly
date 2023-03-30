@@ -45,20 +45,24 @@ const Products_edit = () => {
                 <label class="block text-gray-700 font-bold mb-2" for="name">
                     Name
                 </label>
-                <input class="name shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter name" value={name || data.name} onChange={(e) => setName(e.target.value)} />
+                <input class="name shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="name" type="text" placeholder="Enter name" defaultValue={name || data.name} onChange={(e) => {
+                    if (e.target.value !== data.name) {
+                        setName(e.target.value);
+                    }
+                }} />
 
             </div>
             <div class="mb-4">
                 <label class=" block text-gray-700 font-bold mb-2" for="price">
                     Price
                 </label>
-                <input class="price shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price" type="text" placeholder="Enter price" value={price || data.price} onChange={(e) => setPrice(e.target.value)} />
+                <input class="price shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price" type="text" placeholder="Enter price" defaultValue={price || data.price} onChange={(e) => setPrice(e.target.value)} />
             </div>
             <div class="mb-4">
                 <label class="block text-gray-700 font-bold mb-2" for="desc">
                     Description
                 </label>
-                <input class="price shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price" type="text" placeholder="Enter price" value={description || data.description} onChange={(e) => setDescription(e.target.value)} />
+                <input class="price shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="price" type="text" placeholder="Enter price" defaultValue={description || data.description} onChange={(e) => setDescription(e.target.value)} />
             </div>
             <div class="flex items-center justify-between">
                 <button onClick={handleEdit} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">

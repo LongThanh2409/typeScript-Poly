@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom"
 
 const Products_edit = () => {
     const { id } = useParams()
-    const [data, setData] = useState({});
+    const [data, setData] = useState([]);
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
@@ -31,10 +31,7 @@ const Products_edit = () => {
             description: description,
         };
         UpdateProjects(id, updatedProject)
-            .then(() => {
-                alert("Sửa thành công");
-                window.location.href = "/"
-            })
+            .then((alert("Sua thành công"))).then(window.location.href = "/")
             .catch((error) => console.log(error));
     };
 

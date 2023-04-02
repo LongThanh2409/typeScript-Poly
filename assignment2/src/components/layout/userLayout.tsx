@@ -5,9 +5,11 @@ import Slider from "./slider"
 import Footer from "./footer"
 const UserLayout = () => {
     return <>
-        <Header />
-        <Outlet />
-        <Footer />
+        <div className="px-1">
+            <Header />
+            <Outlet />
+            <Footer />
+        </div>
     </>
 }
 

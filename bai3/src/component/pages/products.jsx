@@ -7,8 +7,11 @@ const Products = () => {
     const [data, setdata] = useState([])
 
     useEffect(() => {
+
+
         getProjects().then(({ data }) => setdata(data))
-    }, [data])
+
+    }, data)
     const handleRemove = (id, name) => {
         if (window.confirm(`Bạn có chắc muốn xóa dự án ${name}?`)) {
             RemoveProjects(id).then(() => {
@@ -16,6 +19,12 @@ const Products = () => {
             }).catch(error => console.log(error));
         }
 
+    }
+    if (data.length === 0) {
+
+        return <>
+            <Container></Container>
+            <h1>Danh sách trống</h1></>
     }
 
 
@@ -30,6 +39,7 @@ const Products = () => {
     return <>
 
         <Container></Container>
+
         <table class="min-w-max w-full table-auto" >
             <thead>
                 <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -41,7 +51,10 @@ const Products = () => {
                 </tr>
             </thead>
             <tbody>
+
                 {data.map((data, index) =>
+
+
                     <>
 
                         <tr class="border-b border-gray-200 hover:bg-gray-100">
@@ -63,7 +76,10 @@ const Products = () => {
                             </td>
                         </tr>
                     </>
+
                 )}
+
+
             </tbody>
         </table >
     </>

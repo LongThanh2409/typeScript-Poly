@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom"
 
 const Products_edit = () => {
     const { id } = useParams()
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({});
     const [name, setName] = useState("");
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");

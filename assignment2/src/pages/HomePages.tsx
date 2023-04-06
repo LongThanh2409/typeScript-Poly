@@ -1,7 +1,26 @@
 import Slider from "../components/layout/slider"
+import { getProducts } from "../Api/products"
+import { IProducts } from "../interfaces/products"
 import Products from "../components/products"
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom'
+import { useEffect, useState } from "react"
 const HomePages = () => {
+    const [products, setProducts] = useState<IProducts[]>([])
+
+    const fetchProduct = async () => {
+        try {
+            const { data } = await getProducts()
+            // console.log(data.);
+            setProducts(data)
+
+        } catch (err) {
+
+        }
+    }
+
+    useEffect(() => {
+        fetchProduct()
+    }, [])
+
     return <>
 
 
@@ -10,7 +29,9 @@ const HomePages = () => {
         <h1>Điện Thoại Nổi Bật</h1>
         <div className="grid xl:grid-cols-7  gap-5  sm:grid-cols-4">
 
-            <Products />
+            {products.map(product => <Products
+                data={product}
+                key={product._id} />)}
 
 
         </div >

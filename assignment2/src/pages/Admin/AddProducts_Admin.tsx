@@ -7,7 +7,7 @@ const AddProducts_Admin = () => {
 
             <div className="md:w-2/5 p-4">
                 <h2 className="text-xl font-bold mb-4">Thêm ảnh sản phẩm</h2>
-                <div className="bg-gray-100 h-64 rounded-lg flex items-center justify-center">
+                <div className="bg-gray-50 h-64 rounded-lg flex items-center justify-center">
 
                     <span className="text-gray-400">
                         <i className="cursor-grab"><FontAwesomeIcon icon={faSquarePlus} size="3x" style={{ color: "#1b97b6", }} /></i>

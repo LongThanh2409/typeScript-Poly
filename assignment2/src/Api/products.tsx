@@ -1,4 +1,4 @@
-import Products from "../interfaces/products";
+import { IProducts } from "../interfaces/products";
 import instance from "./config";
 const getProducts = () => {
     return instance.get("/products")
@@ -8,11 +8,11 @@ const getProduct = (id: string | number) => {
     return instance.get("/products/" + id)
 }
 
-const UpdateProducts = (id: string | number, products: Products) => {
+const UpdateProducts = (id: string | number, products) => {
     return instance.put("/products/" + id, products)
 }
 
-const AddProducts = (products: Products) => {
+const AddProducts = (products) => {
     return instance.post("/products", products)
 }
 

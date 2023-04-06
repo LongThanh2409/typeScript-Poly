@@ -1,29 +1,48 @@
+import { Login_user } from "../../Api/auth"
+import { Link, useNavigate } from "react-router-dom"
+import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useLocalStorage } from '../../hooks';
+import { SigninForm, signinSchema } from "../../interfaces/auth"
+const Logins = () => {
+
+    const { register, handleSubmit, formState: { errors } } = useForm<SigninForm>({
+        resolver: yupResolver(signinSchema)
+    })
+
+    const navigate = useNavigate()
+
+    const [user, setUser] = useLocalStorage("user", null)
+
+    const onSubmit = async (data: SigninForm) => {
+        console.log(data);
+
+        try {
+            const { data: { accessToken, user } } = await Login_user(data)
+
+            setUser({
+                accessToken,
+                ...user
+            })
+            if (user.role) {
+                navigate('/admin')
+            } else {
+                navigate('/')
+            }
+
+        } catch (err) {
+            console.log(err);
+
+        }
+
+    }
 
 
-const Login = () => {
+    // useEffect(() => {
+    //     handleLogin()
+    //     // Perform any necessary setup logic here
+    // }, [])
     return (
-        /* <form onSubmit={handleSubmit(onSubmit)} className="">
-          <div className="form-group">
-            <label htmlFor="exampleInputEmail1">Email address</label>
-            <input {...register('email',{required: true, pattern: {
-                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                    message: "Địa chỉ email không đúng định dạng cần"
-                }})}  type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" />
-            {errors.email?.type === "required" && <small id="emailHelp" className="form-text text-muted">Trường email là bắt buộc</small>}
-            {errors.email?.type === "pattern" && <small id="emailHelp" className="form-text text-muted">{errors.email.message}</small>}
-          </div>
-          <div className="form-group">
-            <label htmlFor="exampleInputPassword1">Password</label>
-            <input {...register('password',{required: true, minLength:{
-                value: 6,
-                message: "Mật khẩu phải có ít nhất 6 ký tự"
-            }})} type="password" className="form-control" id="exampleInputPassword1" placeholder="Password" />
-            {errors.password?.type ==="required" &&  <small id="emailHelp" className="form-text text-muted">Trường  Password là bắt buộc</small>}
-            {errors.password?.type ==="minLength" &&  <small id="emailHelp" className="form-text text-muted">{errors.password.message}</small>}
-          </div>
-          
-          <button type="submit" className="btn btn-primary">Login</button>
-        </form> */
 
         <section className="bg-gray-50 ">
             <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -33,19 +52,37 @@ const Login = () => {
                         <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-gray-900">
                             Sign in to your account
                         </h1>
-                        <form className="space-y-4 md:space-y-6">
+                        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 md:space-y-6">
                             <div>
                                 <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-900">Your email</label>
                                 <input
+                                    type="email"
+                                    {...register('email')}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="name@company.com"
 
-                                    type="email" name="email" id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" />
+                                />
 
+                                <p className='text-red-600 text-[10px]'>
 
+                                    {errors.email && errors.email.message}
+                                </p>
                             </div>
                             <div>
                                 <label htmlFor="password" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-900">Password</label>
-                                <input type="password" name="password" id="password" placeholder="••••••••" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500" />
-                                <small id="emailHelp" className="form-text text-muted">Trường  Password là bắt buộc</small>
+                                <input
+                                    type="password"
+                                    {...register('password')}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-900 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="name@company.com"
+
+                                />
+                                <p className='text-red-600 text-[10px]'>
+
+                                    {errors.password && errors.password.message}
+                                </p>
+
+                                {/* <small id="emailHelp" className="form-text text-muted">Trường  Password là bắt buộc</small> */}
 
                             </div>
 
@@ -69,4 +106,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Logins

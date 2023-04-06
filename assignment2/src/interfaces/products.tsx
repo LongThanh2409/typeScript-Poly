@@ -1,4 +1,4 @@
-interface Products {
+export interface IProducts {
     _id: string | number;
     nameProducts: string
     priceProducts: number
@@ -7,7 +7,7 @@ interface Products {
     imageProducts: imageProducts[]
 
 }
-interface imageProducts {
+export interface imageProducts {
     image0: string
     image1: string
     image2: string
@@ -15,4 +15,3 @@ interface imageProducts {
     image4: string
     image5: string
 }
-export default Products

@@ -96,11 +96,9 @@ const Logins = () => {
 
                             <button type="submit" className="w-full text-gray-900 bg-primary-600 bg-red-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Đăng Nhập</button>
                             <div>
-                                <p className="text-center">Hoặc đăng nhập bằng</p>
-                                <div className="flex justify-center mt-4 gap-5">
-                                    <a href=""><img src="./fac.png" alt="" /></a>
-                                    <a href=""><img src="./google.png" alt="" /></a>
-                                </div>
+                                <Link to={"/signup"}>
+                                    <p className="text-center">Đăng kí</p>
+                                </Link>
                             </div>
                         </form>
                     </div>
@@ -108,8 +106,8 @@ const Logins = () => {
                         <h1 className="mt-2 rounded-lg bg-red-500 px-3 py-2"><Link to={"/"}>Trang chủ</Link></h1>
                     </div>
 
-                    <div className="bg-[#F8F8F8] flex justify-center items-center mx-16">
-                        <img src="./logo.png" alt="" />
+                    <div className="w-48  bg-[#F8F8F8] flex justify-center items-center mx-16">
+                        <img className="rounded-lg" src="./logo2.jpg" alt="" />
                     </div>
                 </div>
             </div>

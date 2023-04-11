@@ -1,4 +1,4 @@
-import { Login_user } from "../../Api/auth"
+import { Get_user, Login_user } from "../../Api/auth"
 import { Link, useNavigate } from "react-router-dom"
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -13,35 +13,43 @@ const Logins = () => {
     const navigate = useNavigate()
 
     const [user, setUser] = useLocalStorage("user", null)
+    const [allusers, setAllusers] = useLocalStorage("users", [])
+
 
     const onSubmit = async (data: SigninForm) => {
         console.log(data);
 
+
         try {
+            // await Get_user().then(({ data }) => setAllusers(data))
             const { data: { accessToken, user } } = await Login_user(data)
 
             setUser({
                 accessToken,
                 ...user
             })
-            if (user.role) {
+            if (user.role === "admin") {
                 navigate('/admin')
             } else {
                 navigate('/')
             }
 
         } catch (err) {
-            console.log(err);
 
+            // const matchingUser =
+            //     allusers
+            //         .find((user: { email: string, password: string }) => user.email == data.email)
+
+            // if (!matchingUser) {
+            //     alert("Sai email")
+            // }
+            // if (data.password != matchingUser.password) {
+            //     alert("Sai password")
+            // }
         }
 
     }
 
-
-    // useEffect(() => {
-    //     handleLogin()
-    //     // Perform any necessary setup logic here
-    // }, [])
     return (
 
         <section className="bg-gray-50 ">
@@ -96,6 +104,10 @@ const Logins = () => {
                             </div>
                         </form>
                     </div>
+                    <div>
+                        <h1 className="mt-2 rounded-lg bg-red-500 px-3 py-2"><Link to={"/"}>Trang chủ</Link></h1>
+                    </div>
+
                     <div className="bg-[#F8F8F8] flex justify-center items-center mx-16">
                         <img src="./logo.png" alt="" />
                     </div>

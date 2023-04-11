@@ -10,18 +10,19 @@ import Signup from './pages/Client/signup'
 import ProductsAdmin from './pages/Admin/productsAdmin'
 import AddProducts_Admin from './pages/Admin/AddProducts_Admin'
 import EditProducts_Admin from './pages/Admin/EditProducts_Admin'
-
+import { useLocalStorage } from './hooks'
 function App() {
+
   return <BrowserRouter>
     <Routes>
+      <Route path='login' element={<Logins />} />
+      <Route path='signup' element={<Signup />} />
       <Route path='/' element={<UserLayout />}>
         <Route index path='/' element={<HomePages />} />
-        <Route path='detail' element={<h1>â</h1>} />
         <Route path='products-detail/:id' element={<Products_detail />} />
-        <Route path='login' element={<Logins />} />
-        <Route path='signup' element={<Signup />} />
 
       </Route>
+
       <Route path='/admin' element={<Layout />}>
         <Route index path='/admin' element={<ProductsAdmin />} />
         <Route path='add-products' element={<AddProducts_Admin />} />
